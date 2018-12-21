@@ -8,7 +8,7 @@ jmp 0x07C0:START
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; CITRON64 OS에 관련된 환경 설정 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-TOTALSECTORCOUNT: dw 1024
+TOTALSECTORCOUNT: dw 10
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; 코드 시작
@@ -113,7 +113,7 @@ READEND:
     push LOADINGCOMPLETEMESSAGE
     push 1
     push 20
-    push PRINTMESSAGE
+    call PRINTMESSAGE
     add sp,6
 
     jmp 0x1000:0x0000
@@ -185,7 +185,7 @@ MESSAGE1: db 'CITRON64 OS Boot Loader Start', 0
 
 DISKERRORMESSAGE: db 'DISK Error', 0
 IMAGELOADINGMESSAGE: db 'OS Image Loading...', 0
-LOADINGCOMPLETEMESSAGE: db 'OS Image Loading Complete', 0
+LOADINGCOMPLETEMESSAGE: db 'Complete', 0
 
 SECTORNUMBER: db 0x02
 HEADNUMBER: db 0x00
