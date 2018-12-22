@@ -43,7 +43,7 @@ PROTECTEMODE:
     call PRINTMESSAGE
     add esp, 12
 
-    jmp $
+    jmp dword 0x08: 0x10200
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   함수 코드 영영
