@@ -2,11 +2,30 @@
 
 void kPrintString( int iX, int iY, const char* pcString );
 BOOL kInitializeKernel64Area(void);
+BOOL kIsMemoryEnough(void);
 
 void Main( void ){
-    kPrintString(0, 3, "C Lang Kernel Started");
-    kInitializeKernel64Area();
-    kPrintString(0, 4, "IA-32e Kernel Area Initialization Complete");
+    kPrintString(0, 3, "C Lang Kernel Started.................................[Pass]");
+    kPrintString(0, 4, "Minimum Memory Size Check.............................[    ]");
+    if(kIsMemoryEnough() == FALSE){
+        kPrintString(55, 4, "Fail");
+        kPrintString(0, 5, "Not Enough Memory ( Citron64 OS Requires Over 64Mbyte Memory )");
+        while(1);        
+    }
+    else{
+        kPrintString(55, 4, "Pass");
+    }
+
+    
+    kPrintString(0, 5, "IA-32e Kernel Area Initialization.....................[    ]");
+    if(kInitializeKernel64Area() == FALSE){
+        kPrintString(55, 5, "Fail");
+        kPrintString(0, 6, "Kernel Area Initialization Fail");
+        while(1);        
+    }
+    else{
+        kPrintString(55, 5, "Pass");
+    }
 
     while(1);
 }
@@ -32,6 +51,20 @@ BOOL kInitializeKernel64Area(void){
             return FALSE;
         }
         pdwCurrentAddress++;
+    }
+    return TRUE;
+}
+
+BOOL kIsMemoryEnough(void){
+    DWORD *pdwCurrentAddress;
+    pdwCurrentAddress = (DWORD *)0x100000;
+
+    while((DWORD)pdwCurrentAddress < 0x4000000 ){
+        *pdwCurrentAddress = 0x12345678;
+        if(*pdwCurrentAddress != 0x12345678){
+            return FALSE;
+        }
+        pdwCurrentAddress+=(0x100000/4);
     }
     return TRUE;
 }

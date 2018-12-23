@@ -12,8 +12,23 @@ START:
     mov ds, ax
     mov es, ax
 
+    ;   A20게이트 활성화
+    ;   1. BIOS 서비스 사용
+    mov ax, 0x2401
+    int 0x15
+    jc .A20GATEERROR
+    jmp .A20GATESUCCESS
+
+.A20GATEERROR:
+    in al, 0x92 ;컨트롤 포트(0x92)에서 바이트를 읽어옴
+    or al, 0x02
+    and al, 0xFE
+    out 0x92, al
+
+.A20GATESUCCESS:
     cli
     lgdt[GDTR]
+
     ;보호모드로 진입 전 세팅
     ;Disable Paging, Disable cache, Internal FPU
     ;Disable Align check, Enable ProtectedMode
