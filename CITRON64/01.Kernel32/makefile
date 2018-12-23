@@ -21,10 +21,10 @@ dep:
 	make -C $(OBJDIRECTORY) -f ../makefile InernalDependency
 	@echo ==== Dependancy Search Complete ====
 
-ExcuteInternalBuile: dep 
+ExcuteInternalBuild: dep 
 	make -C $(OBJDIRECTORY) -f ../makefile Kernel32.elf
 
-$(OBJDIRECTORY)/Kernel32.elf.bin: ExcuteInternalBuile
+$(OBJDIRECTORY)/Kernel32.elf.bin: ExcuteInternalBuild
 	$(OBJCOPY32) $(OBJDIRECTORY)/Kernel32.elf $@
 
 Kernel32.bin: $(OBJDIRECTORY)/EntryPoint.bin $(OBJDIRECTORY)/Kernel32.elf.bin 

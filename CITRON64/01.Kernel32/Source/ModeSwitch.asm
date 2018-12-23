@@ -1,6 +1,6 @@
 [BITS 32]
 
-global kReadCPUID, kSwitchAndExcute64bitKernel
+global kReadCPUID, kSwitchAndExecute64bitKernel
 
 SECTION .text
 
@@ -36,7 +36,7 @@ kReadCPUID:
     pop ebp 
     ret
 
-kSwitchAndExcute64bitKernel:
+kSwitchAndExecute64bitKernel:
     
     mov eax, cr4
     or eax, 0x20    ; PAE비트 1로 설정 
@@ -56,5 +56,3 @@ kSwitchAndExcute64bitKernel:
     mov cr0, eax
 
     jmp 0x08:0x200000
-
-    jmp $
