@@ -35,14 +35,14 @@ START:
     mov eax, 0x4000003B
     mov cr0, eax
 
-    jmp dword 0x08: (PROTECTEMODE - $$ + 0x10000 )
+    jmp dword 0x18: (PROTECTEMODE - $$ + 0x10000 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   보호모드 진입
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [BITS 32]
 PROTECTEMODE:
-    mov ax, 0x10
+    mov ax, 0x20
     mov ds, ax
     mov es, ax
     mov fs, ax
@@ -58,7 +58,7 @@ PROTECTEMODE:
     call PRINTMESSAGE
     add esp, 12
 
-    jmp dword 0x08: 0x10200
+    jmp dword 0x18: 0x10200
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   함수 코드 영영
@@ -117,11 +117,27 @@ GDTR:
 
 GDT:
     NULLDescriptor:
+        dw 0x0000   ;Limit[15:0]
+        dw 0x0000   ;Base[15:0]
+        db 0x00     ;Base[23:16]
+        db 0x00     ;P(1), DPL(2), S(1), Typed(4)
+        db 0x00     ;G(1), D/B(1), L(1), Available(1), Limit[19:16]
+        db 0x00     ;Base[31:24]
+
+    IA_32eCODEDESCRIPTOR:
+        dw 0xFFFF
         dw 0x0000
+        db 0x00
+        db 0x9A
+        db 0xAF
+        db 0x00
+
+    IA_32eDATADESCRIPTOR:
+        dw 0xFFFF
         dw 0x0000
         db 0x00
-        db 0x00
-        db 0x00
+        db 0x92
+        db 0xAF
         db 0x00
 
     CODEDESCRIPTOR:
