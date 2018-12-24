@@ -4,29 +4,29 @@ GCC64 = gcc -c -m64 -ffreestanding
 LD64 = ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x0200000
 OBJCOPY64 = objcopy -j .text -j .data -j .rodata -j .bss -S -O binary
 
-OBJDIRECTORY = Temp
+OBJECTDIRECTORY = Temp
 SOURCEDIRECTORY = Source
 
 #	빌드 항목 및 빌드 방법
 all: prepare Kernel64.bin
 
 prepare:
-	mkdir -p $(OBJDIRECTORY)
+	mkdir -p $(OBJECTDIRECTORY)
 
 dep:
 	@echo ==== Make Dependancy File ====
-	make -C $(OBJDIRECTORY) -f ../makefile InernalDependency
+	make -C $(OBJECTDIRECTORY) -f ../makefile InernalDependency
 	@echo ==== Dependancy Search Complete ====
 
 ExcuteInternalBuild: dep 
-	make -C $(OBJDIRECTORY) -f ../makefile Kernel64.elf
+	make -C $(OBJECTDIRECTORY) -f ../makefile Kernel64.elf
 
 Kernel64.bin: ExcuteInternalBuild 
-	$(OBJCOPY64) $(OBJDIRECTORY)/Kernel64.elf $@
+	$(OBJCOPY64) $(OBJECTDIRECTORY)/Kernel64.elf $@
 
 clean:
 	rm -f *.bin
-	rm -f $(OBJDIRECTORY)/*.*
+	rm -f $(OBJECTDIRECTORY)/*.*
 
 #	make에 의해 다시 호출되는 부분 (Temp 디렉터리 기준)
 ENTRYPOINTSOURCEFILE = ../$(SOURCEDIRECTORY)/EntryPoint.s 
