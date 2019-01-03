@@ -64,7 +64,7 @@ BOOL kChangeKeyboardLED(BOOL bCapsLockOn, BOOL bNumLockOn, BOOL bScrollLockOn){
     }
     for(j=0;j<100;j++){
         for(i=0;i<0xFFFF; i++){
-            if(kIsOutputBufferFull == TRUE){
+            if(kIsOutputBufferFull() == TRUE){
                 break;
             }
         }
