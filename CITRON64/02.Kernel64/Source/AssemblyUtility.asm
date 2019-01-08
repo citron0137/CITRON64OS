@@ -1,8 +1,9 @@
 [BITS 64]
 
-global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
-
 SECTION .text
+
+global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
+global kEnableInterrupt, kDisableInterrupt, kReadRFLAGS
 
 kInPortByte:
     ;   포트로부터 1바이트 읽기
@@ -41,3 +42,16 @@ kLoadTR:
 kLoadIDTR:
     lidt [rdi]
     ret
+
+kEnableInterrupt:
+    sti 
+    ret 
+
+kDisableInterrupt:
+    cli
+    ret 
+
+kReadRFLAGS:
+    pushfq
+    pop rax 
+    ret 
