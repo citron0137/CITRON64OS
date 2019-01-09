@@ -1,0 +1,5 @@
+UserLibrary.o: ../Source/UserLibrary.c ../Source/Types.h \
+ ../Source/UserLibrary.h
+SystemCallLibrary.o: ../Source/SystemCallLibrary.c \
+ ../Source/SystemCallLibrary.h ../Source/Types.h \
+ ../Source/SystemCallList.h
