@@ -1,9 +1,9 @@
 [BITS 64]
 
+SECTION .text
+
 global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
 global kEnableInterrupt, kDisableInterrupt, kReadRFLAGS
-
-SECTION .text
 
 kInPortByte:
     ;   포트로부터 1바이트 읽기
