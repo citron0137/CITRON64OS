@@ -49,18 +49,18 @@ void Main(void){
     kPrintString(55, 16, "Pass");
     // clear page
     for(int i =0; i < 16; i++){
-        kPrintString(0,i, "                                                            ");
+        kPrintString(0,i, "                                                                      ");
     }
     // crypto
     int keylen = 80;
     unsigned char key1[11] = "\x3b\x4a\x2d\x58\x32\x5c\x3c\x1c\x41\x42";
     unsigned char ciphertext[100] = "welcome to mbr level reversing, this operating system is made by dochoon. I wish you love it.0Az";
     unsigned char ciphertextForPrint[200] = {0x00,};
-    for(int i =0; i < 50; i++){
+    for(int i =0; i < 100; i++){
         for(int i = 0; i < 7; i++) lfsr_next(key1,keylen);
         ciphertext[i] ^= lfsr_next(key1,keylen);
     }
-    for(int i =0; i < 50; i++){
+    for(int i =0; i < 100; i++){
         ciphertextForPrint[2*i] = ciphertext[i]>>4;
         if(ciphertextForPrint[2*i] >= 10) ciphertextForPrint[2*i] += 'A'-10;
         else ciphertextForPrint[2*i] += '0';
@@ -68,15 +68,27 @@ void Main(void){
         if(ciphertextForPrint[2*i+1] >= 10) ciphertextForPrint[2*i+1] += 'A'-10;
         else ciphertextForPrint[2*i+1] += '0';
     }
-    // print crypted string
-    kPrintString(0, 1, "This is a crypted message");
-    kPrintString(0, 2, ciphertextForPrint);
-  
+    // print welcome
+//
+// _  _ __, _,   _,  _, _, _ __,
+// |  | |_  |   / ` / \ |\/| |_ 
+// |/\| |   | , \ , \ / |  | |  
+// ~  ~ ~~~ ~~~  ~   ~  ~  ~ ~~~
+                              
 
+    kPrintString(0, 0, " _  _ __, _,   _,  _, _, _ __,");
+    kPrintString(0, 1, " |  | |_  |   / ` / \ |\/| |_ ");
+    kPrintString(0, 2, " |/\| |   | , \ , \ / |  | |  ");
+    kPrintString(0, 3, " ~  ~ ~~~ ~~~  ~   ~  ~  ~ ~~~");
+    kPrintString(0, 4, "");
+    
+    // print crypted string
+    kPrintString(0, 5, "This is a crypted message");
+    kPrintString(0, 6, ciphertextForPrint);
     // print question
 
-    kPrintString(0, 6, "This is another crypted message");
-    kPrintString(0, 7, "Find plain text of this");
+    kPrintString(0, 8, "This is another crypted message");
+    kPrintString(0, 9, "Find plain text of this");
 
     while(1){
         if( kIsOutputBufferFull() == TRUE){
