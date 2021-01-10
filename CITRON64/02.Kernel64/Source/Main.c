@@ -48,7 +48,7 @@ void Main(void){
     kEnableInterrupt();
     kPrintString(55, 16, "Pass");
     // clear page
-    for(int i =0; i < 16; i++){
+    for(int i =0; i < 20; i++){
         kPrintString(0,i, "                                                                      ");
     }
     // crypto
@@ -77,8 +77,8 @@ void Main(void){
                               
 
     kPrintString(0, 0, " _  _ __, _,   _,  _, _, _ __,");
-    kPrintString(0, 1, " |  | |_  |   / ` / \ |\/| |_ ");
-    kPrintString(0, 2, " |/\| |   | , \ , \ / |  | |  ");
+    kPrintString(0, 1, " |  | |_  |   / ` / \\ |\\/| |_ ");
+    kPrintString(0, 2, " |/\\| |   | , \\ , \\ / |  | |  ");
     kPrintString(0, 3, " ~  ~ ~~~ ~~~  ~   ~  ~  ~ ~~~");
     kPrintString(0, 4, "");
     
@@ -87,11 +87,11 @@ void Main(void){
     kPrintString(0, 6, ciphertextForPrint);
     
     // print question
-    kPrintString(0, 8, "This is another crypted message");
-    kPrintString(0, 9, "Find plain text of second crypted message");
+    kPrintString(0, 10, "This is another crypted message");
+    kPrintString(0, 11, "Find plain text of second crypted message");
     
 
-    kPrintString(0, 11, "+) Cryptographic routines are hidden in this operating system.");
+    kPrintString(0, 15, "+) Cryptographic routines are hidden in this operating system.");
 
     while(1){
         if( kIsOutputBufferFull() == TRUE){
