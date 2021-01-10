@@ -65,7 +65,7 @@ void Main(void){
         else ciphertextForPrint[2*i+1] += '0';
     }
 
-    kPrintString(0, 17, "Pass");
+    kPrintString(0, 17, ciphertextForPrint);
   
 
     while(1){
