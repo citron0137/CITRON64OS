@@ -1,5 +1,6 @@
 Main.o: ../Source/Main.c ../Source/Types.h ../Source/Keyboard.h \
- ../Source/Descriptor.h ../Source/PIC.h
+ ../Source/Descriptor.h ../Source/PIC.h ../Source/Crypt.h
+Crypt.o: ../Source/Crypt.c ../Source/Crypt.h
 InterruptHandler.o: ../Source/InterruptHandler.c \
  ../Source/InterruptHandler.h ../Source/Types.h ../Source/PIC.h
 Descriptor.o: ../Source/Descriptor.c ../Source/Descriptor.h \

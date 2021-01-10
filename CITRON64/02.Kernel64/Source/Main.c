@@ -2,6 +2,7 @@
 #include "Keyboard.h"
 #include "Descriptor.h"
 #include "PIC.h"
+#include "Crypt.h"
 
 void kPrintString(int iX, int iY, const char * pcString );
 
@@ -46,6 +47,25 @@ void Main(void){
     kMaskPICInterrupt(0);
     kEnableInterrupt();
     kPrintString(55, 16, "Pass");
+
+    int keylen = 80;
+    unsigned char key1[11] = "\x3b\x4a\x2d\x58\x32\x5c\x3c\x1c\x41\x42";
+    unsigned char ciphertext[50] = "Welcome to MBR reversing";
+    unsigned char ciphertextForPrint[100] = {0x00,};
+    for(int i =0; i < 50; i++){
+        for(int i = 0; i < 7; i++) lfsr_next(key1,keylen);
+        ciphertext[i] ^= lfsr_next(key1,keylen);
+    }
+    for(int i =0; i < 50; i++){
+        ciphertextForPrint[2*i] = ciphertext[i]>>4;
+        if(ciphertextForPrint[2*i] >= 10) ciphertextForPrint[2*i] += 'A'-10;
+        else ciphertextForPrint[2*i] += '0';
+        ciphertextForPrint[2*i+1] = ciphertext[i]&0xf;
+        if(ciphertextForPrint[2*i+1] >= 10) ciphertextForPrint[2*i+1] += 'A'-10;
+        else ciphertextForPrint[2*i+1] += '0';
+    }
+
+    kPrintString(0, 17, "Pass");
   
 
     while(1){
