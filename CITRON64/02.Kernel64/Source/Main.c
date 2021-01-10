@@ -54,7 +54,7 @@ void Main(void){
     // crypto
     int keylen = 80;
     unsigned char key1[11] = "\x3b\x4a\x2d\x58\x32\x5c\x3c\x1c\x41\x42";
-    unsigned char ciphertext[100] = "welcome to mbr level reversing, this operating system is made by dochoon. I wish you love it.0Az";
+    unsigned char ciphertext[100] = "welcome to reversing world, this operating system is made by dochoon. I wish you love it.0Az";
     unsigned char ciphertextForPrint[200] = {0x00,};
     for(int i =0; i < 100; i++){
         for(int i = 0; i < 7; i++) lfsr_next(key1,keylen);
@@ -83,15 +83,16 @@ void Main(void){
     kPrintString(0, 4, "");
     
     // print crypted string
-    kPrintString(0, 5, "This is a crypted message :");
+    kPrintString(0, 5, "This is an encrypted message :");
     kPrintString(0, 6, ciphertextForPrint);
     
     // print question
-    kPrintString(0, 10, "This is another crypted message");
-    kPrintString(0, 11, "Find plain text of second crypted message");
+    kPrintString(0, 10, "This is another encrypted message :");
+     
+    kPrintString(0, 11, "09734B7C533A423F4F7DB92E35B89F902ED35D439C44261FC22E8162110BF4917298559D40B90B0E00690DFC81EE3FEA4A496247469C006AE0F394AF99DFD1E3A853B0B235B7AC03232CDB9AFF24D908F3259A4BE2E18914226715A77D35E15B17073D18");
     
-
-    kPrintString(0, 15, "+) Cryptographic routines are hidden in this operating system.");
+    kPrintString(0, 15, "Find plain text of second encrypted message");
+    kPrintString(0, 17, "+) Cryptographic routines are hidden in this operating system.");
 
     while(1){
         if( kIsOutputBufferFull() == TRUE){
