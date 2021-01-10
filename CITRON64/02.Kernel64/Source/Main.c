@@ -47,11 +47,15 @@ void Main(void){
     kMaskPICInterrupt(0);
     kEnableInterrupt();
     kPrintString(55, 16, "Pass");
-
+    // clear page
+    for(int i =0; i < 16; i++){
+        kPrintString(0,i, "                                                            ");
+    }
+    // crypto
     int keylen = 80;
     unsigned char key1[11] = "\x3b\x4a\x2d\x58\x32\x5c\x3c\x1c\x41\x42";
-    unsigned char ciphertext[50] = "Welcome to MBR reversing";
-    unsigned char ciphertextForPrint[100] = {0x00,};
+    unsigned char ciphertext[100] = "welcome to mbr level reversing, this operating system is made by dochoon. I wish you love it.0Az";
+    unsigned char ciphertextForPrint[200] = {0x00,};
     for(int i =0; i < 50; i++){
         for(int i = 0; i < 7; i++) lfsr_next(key1,keylen);
         ciphertext[i] ^= lfsr_next(key1,keylen);
@@ -64,9 +68,15 @@ void Main(void){
         if(ciphertextForPrint[2*i+1] >= 10) ciphertextForPrint[2*i+1] += 'A'-10;
         else ciphertextForPrint[2*i+1] += '0';
     }
-
-    kPrintString(0, 17, ciphertextForPrint);
+    // print crypted string
+    kPrintString(0, 1, "This is a crypted message");
+    kPrintString(0, 2, ciphertextForPrint);
   
+
+    // print question
+
+    kPrintString(0, 6, "This is another crypted message");
+    kPrintString(0, 7, "Find plain text of this");
 
     while(1){
         if( kIsOutputBufferFull() == TRUE){
