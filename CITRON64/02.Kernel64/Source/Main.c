@@ -83,12 +83,15 @@ void Main(void){
     kPrintString(0, 4, "");
     
     // print crypted string
-    kPrintString(0, 5, "This is a crypted message");
+    kPrintString(0, 5, "This is a crypted message :");
     kPrintString(0, 6, ciphertextForPrint);
+    
     // print question
-
     kPrintString(0, 8, "This is another crypted message");
-    kPrintString(0, 9, "Find plain text of this");
+    kPrintString(0, 9, "Find plain text of second crypted message");
+    
+
+    kPrintString(0, 11, "+) Cryptographic routines are hidden in this operating system.");
 
     while(1){
         if( kIsOutputBufferFull() == TRUE){
