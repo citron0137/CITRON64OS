@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<Foundry>
-<VM>
-<VMId type="string">52 df 2c 24 ad 6d da 63-95 7f e6 34 33 d4 4e 4f</VMId>
-<ClientMetaData>
-<clientMetaDataAttributes/>
-<HistoryEventList/></ClientMetaData>
-<vmxPathName type="string">Citron64vm.vmx</vmxPathName></VM></Foundry>

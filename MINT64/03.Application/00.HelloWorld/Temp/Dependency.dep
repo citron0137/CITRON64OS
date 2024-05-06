@@ -1,4 +1,0 @@
-Main.o: ../Source/Main.c ../../UserLibrary/Source/MINTOSLibrary.h \
- ../../UserLibrary/Source/Types.h ../../UserLibrary/Source/UserLibrary.h \
- ../../UserLibrary/Source/SystemCallLibrary.h \
- ../../UserLibrary/Source/SystemCallList.h
