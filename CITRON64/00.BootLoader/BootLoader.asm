@@ -50,13 +50,32 @@ START:
     call PRINTMESSAGE
     add sp, 6
     
+; 디스크 리셋 Step 1. 디스크 초기화
+RESETDISK:
+    ; BIOS RESET FUNCTION 호출
+    mov ax, 0   ; 서비스 번호 0
+    mov dl, 0   ; 드라이브 번호 0 (Floppy)
+    int 0x13
+    jc HANDLEDISKERROR  ; 에러가 발생한 경우 핸들러로 이동
+
+
+; 무한 대기 상태 
     jmp $
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; 함수 코드 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; 디스크 에러 처리 함수
+HANDLEDISKERROR:
+    push DISKERRORMESSAGE
+    push 1
+    push 16                 ; Image Loading... 뒤에 출력되도록
+    call PRINTMESSAGE
+    jmp $
 
+
+; 메시지 출력함수
 PRINTMESSAGE: 
     push bp
     mov bp, sp
@@ -112,8 +131,9 @@ PRINTMESSAGE:
 ; PRINTMESSAGE 종료 
     
 
-MESSAGE1: db "CITRON64 OS BootLoader Let's go!", 0 
-IMAGELOADINGMESSAGE: db 'Image Loading...', 0
+MESSAGE1:               db "CITRON64 OS BootLoader Let's go!", 0 
+IMAGELOADINGMESSAGE:    db "Image Loading...", 0
+DISKERRORMESSAGE:       db "Fail, Disk Error", 0
 
 times 510 - ( $ - $$ )    db  0x00    ;510바이트를 00으로 채움 
 
