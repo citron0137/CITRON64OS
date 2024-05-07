@@ -44,6 +44,11 @@ START:
     add sp, 6               ; 스택 정리
 
 ; 이미지 로딩 메시지 출력 
+    push IMAGELOADINGMESSAGE
+    push 1
+    push 0
+    call PRINTMESSAGE
+    add sp, 6
     
     jmp $
 
@@ -108,6 +113,7 @@ PRINTMESSAGE:
     
 
 MESSAGE1: db "CITRON64 OS BootLoader Let's go!", 0 
+IMAGELOADINGMESSAGE: db 'Image Loading...', 0
 
 times 510 - ( $ - $$ )    db  0x00    ;510바이트를 00으로 채움 
 
