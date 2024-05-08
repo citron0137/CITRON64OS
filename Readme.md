@@ -17,6 +17,11 @@
 
 ### 일별로그
 
-* 2024.05.07 [link](https://www.notion.so/20240507-cb2b16d202af45de8b44599375620287?pvs=4)
+* 2024.05.07 [link](https://first-kileskus-5b8.notion.site/20240507-cb2b16d202af45de8b44599375620287?pvs=4)
     * 레포지터리 초기화
-    * 환경 구축 ```진행중```
+    * 환경 구축
+    * 16bit 부트로더 제작
+    * 이미지 로더 구현
+
+* 2024.05.08 [link](https://first-kileskus-5b8.notion.site/20240508-78b5a7e05e2142fe87a33ba6ff7ac463?pvs=4)
+    * todo
