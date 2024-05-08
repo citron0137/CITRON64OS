@@ -22,3 +22,6 @@
     * 환경 구축
     * 16bit 부트로더 제작
     * 이미지 로더 구현
+
+* 2024.05.08 [link](https://first-kileskus-5b8.notion.site/20240508-78b5a7e05e2142fe87a33ba6ff7ac463?pvs=4)
+    * todo
