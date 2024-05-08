@@ -84,7 +84,7 @@ READDATA:
     mov es, si
 
     mov al, byte [ SECTORNUMBER ]   ; 읽은 섹터 번호 저장
-    mov al, 0x01                    ; 하나 증가
+    add al, 0x01                    ; 하나 증가
     mov byte [ SECTORNUMBER ], al   ; 다시 저장
     cmp al, 19  
     jl READDATA                     ; 19보다 작으면 다시 읽기
