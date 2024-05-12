@@ -14,9 +14,31 @@ START:
 
     jmp $   ; 무한 반복 (임시 코드)
 
-; TODO
-;    cli                 ; 인터럽트가 발생하지 않도록 설정
-;    lgdt [ GDTR ]       ; GDT 로드
+    cli                 ; 인터럽트가 발생하지 않도록 설정
+    lgdt [ GDTR ]       ; GDT 로드
+
+    ; 보호모드 진입
+    ; 4 => PG=0 (페이지 사용 x), CD=1 (캐시 비활성화), NW=0 (write-through), 
+    ; 0 => AM=0(어드레스 배수 체크 x), WP=0, 
+    ; 3 => NE=1(FPU 내부적으로 예외 처리 인터럽트 x), ET=1(FPU 지원 o), 
+    ; b => TS=1(테스크 전환되었음?), EM=0(프로세서에 FPU 내장 x),  MP=1 (wait시 TS가 1이면 예외발생), PE=1 (보호모드 진입!) 
+    mov eax, 0x4000003B ; PG=0, CD=1, NW=0, AM=0, WP=0, NE=1, ET=1, TS=1, EM=0, MP=1, PE=1
+    mov cr0, eax
+
+    ; CS 및 eip 재설정 (CodeSegment, CodeSegment기준 주소)
+    jmp dword 0x08: ( PROTECTEMODE - $$ + 0x10000 )
+
+
+[BITS 32]
+PROTECTEMODE:
+    mov ax, 0x10
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax 
+    ; 세그멘트를 모두 DataSegement로 세팅
+
+    jmp $
 
 ; 함수
 
