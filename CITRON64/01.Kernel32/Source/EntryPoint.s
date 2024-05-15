@@ -11,6 +11,7 @@ SECTION .text
 START:
     mov ax, 0x1000
     mov es, ax          ; es를 현재 메모리 주소 기준으로 계산
+    mov ds, ax
 
     cli                 ; 인터럽트가 발생하지 않도록 설정
     lgdt [ GDTR ]       ; GDT 로드
@@ -83,6 +84,7 @@ PRINTMESSAGE:
 
     add esi, 1
     add edi, 2
+    jmp .MESSAGELOOP
 
 .MESSAGEEND:
     pop edx

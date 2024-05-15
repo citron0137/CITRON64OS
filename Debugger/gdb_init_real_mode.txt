@@ -23,7 +23,7 @@ set disassembly-flavor intel
 # Real mode
 # set architecture i8086
 
-set $SHOW_CONTEXT = 1
+set $SHOW_CONTEXT = 0
 
 set $REAL_MODE = 1
 
