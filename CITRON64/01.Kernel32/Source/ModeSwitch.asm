@@ -2,6 +2,7 @@
 
 ; C언어에서 사용할 수 있도록 노출
 global kReadCPUID
+global kSwitchAndExecute64bitKernel
 
 SECTION .text
 
