@@ -1,5 +1,5 @@
 #!/bin/bash
 
-make -C CITRON64 clean
-make -C CITRON64
+make clean
+make 
 qemu-system-x86_64 -L . -m 64 -fda ./CITRON64/Disk.img -M pc
