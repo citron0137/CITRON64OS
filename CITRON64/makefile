@@ -1,4 +1,4 @@
-all: BootLoader Kernel32 Disk.img
+all: BootLoader Kernel32 ImageMaker Disk.img
 
 BootLoader:
 	@echo
@@ -23,13 +23,26 @@ Kernel32:
 	@echo
 
 
+ImageMaker:
+	@echo
+	@echo ============= Build ImageMaker =============
+	@echo
+
+	make -C 04.Utility/00.ImageMaker
+	cp 04.Utility/00.ImageMaker/ImageMaker .
+	
+	@echo
+	@echo ============= Build Complete =============
+	@echo
+
+
 Disk.img: 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
 	@echo
 	@echo ============= Disk Image Build Start =============
 	@echo
 
-	cat $^ > Disk.img
-	
+	./ImageMaker $^
+
 	@echo
 	@echo ============= Disk Image Build Complete =============
 	@echo
@@ -37,5 +50,7 @@ Disk.img: 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
 clean:
 	make -C 00.BootLoader clean
 	make -C 01.Kernel32 clean
+	make -C 04.Utility/00.ImageMaker clean
+	rm -f ImageMaker
 	rm -f Disk.img
 
