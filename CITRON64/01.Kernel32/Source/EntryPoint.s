@@ -13,6 +13,21 @@ START:
     mov es, ax          ; es를 현재 메모리 주소 기준으로 계산
     mov ds, ax
 
+    ; A20 게이트 활성화 - 1. BIOS를 사용
+    mov ax, 0x2401
+    int 0x15
+    jc .A20GATEERROR
+    jmp .A20GATESUCCESS
+
+.A20GATEERROR:
+    ; A20 게이트 활성화 - 2. 실패시시스텀 컨트롤 포트로 시도
+    in al, 0x92
+    or al, 0x02
+    and al, 0xFE
+    out 0x92, al
+.A20GATESUCCESS:
+    ; A20 게이트 활성화 - 끝~
+
     cli                 ; 인터럽트가 발생하지 않도록 설정
     lgdt [ GDTR ]       ; GDT 로드
     
