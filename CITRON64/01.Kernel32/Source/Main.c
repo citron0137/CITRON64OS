@@ -60,7 +60,7 @@ void Main( void ){
         while( 1 );
     }
 
-    kPrintStringWithCheckBox( 8, "Switch To IA-32e Mode" );
+    kPrintStringWithCheckBox( 9, "Switch To IA-32e Mode" );
 
     while(1);
 }
