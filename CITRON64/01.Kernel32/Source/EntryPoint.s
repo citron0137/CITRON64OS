@@ -40,13 +40,13 @@ START:
     mov cr0, eax
     
     ; CS 및 eip 재설정 (CodeSegment, CodeSegment기준 주소)
-    jmp dword 0x08: ( PROTECTEDMODE - $$ + 0x10000 )
+    jmp dword 0x18: ( PROTECTEDMODE - $$ + 0x10000 )
 
 
 [BITS 32]
 PROTECTEDMODE:
     
-    mov ax, 0x10
+    mov ax, 0x20
     mov ds, ax
     mov es, ax
     mov fs, ax
@@ -63,7 +63,7 @@ PROTECTEDMODE:
     call PRINTMESSAGE
     add esp, 12
 
-    jmp dword 0x08: 0x10200
+    jmp dword 0x18: 0x10200
 
 ; 함수
 
@@ -131,7 +131,31 @@ GDT:
         db 0x00
         db 0x00
     
-    ; addr
+    IA_32e__CODE_DESCRIPTOR:
+        ; limit(20) : 0xFFFFF
+        ; base(32)  : 0x00000000
+        ; P=1 (유효한 디스크립터), DPL=0(권한 Hightest), s=1(세그먼트 디스크립터, not 시스템)
+        ; 타입=0xA => [0]=1 (코드 세그먼트), [1]=0 접근승인X, [2]=1 (실행&읽기), [3]=0 (접근됨 X)
+        ; G=1(세그멘트 디스크립터 가중치 0x4K), D/B=0 (세그멘트 사이즈: ?), L=1(IA_32e), avl=0(운영체제가 씀)
+        dw 0xFFFF   ; limit[15:0]
+        dw 0x0000   ; base[15:0]
+        db 0x00     ; base[23:16]
+        db 0x9A     ; P=1, DPL=0,s=1, 타입=0xA 
+        db 0xAF     ; G=1, D=0, L=1, limit[19:16]
+        db 0x00     ; base[31:24]
+    
+    IA_32e__DATA_DESCRIPTOR:
+        ; limit(20) : 0xFFFFF
+        ; base(32)  : 0x00000000
+        ; P=1 (유효한 디스크립터), DPL=0(권한 Hightest), s=1(세그먼트 디스크립터, not 시스템)
+        ; 타입=0x2 => [0]=0 (코드 세그먼트), [1]=0 접근승인X, [2]=1 (읽기&쓰기), [3]=0 (접근됨 X)
+        ; G=1(세그멘트 디스크립터 가중치 0x4K), D/B=0 (세그멘트 사이즈: ?), L=1(IA_32e), avl=0(운영체제가 씀)
+        dw 0xFFFF   ; limit[15:0]
+        dw 0x0000   ; base[15:0]
+        db 0x00     ; base[23:16]
+        db 0x92     ; P=1, DPL=0,s=1, 타입=0x2 
+        db 0xAF     ; G=1, D/B=0, L=1, limit[19:16]
+        db 0x00     ; base[31:24]
      
     CODE_DESCRIPTOR:
         ; limit(20) : 0xFFFFF
