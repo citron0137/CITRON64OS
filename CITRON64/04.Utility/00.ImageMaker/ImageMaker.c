@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 {
     int iSourceFd;
     int iTargetFd;
-    int iBooLoaderSize;
+    int iBooLoaderSectorCount;
     int iKernel32SectorCount;
     int iSourceSize;
 
@@ -43,9 +43,9 @@ int main(int argc, char* argv[])
     }
     iSourceSize = copyFile( iSourceFd, iTargetFd );
     close( iSourceFd );
-    iKernel32SectorCount = adjustInSectorSize( iTargetFd, iSourceSize );
+    iBooLoaderSectorCount = adjustInSectorSize( iTargetFd, iSourceSize );
     printf("[INFO] %s size = [%d] and sector count = [%d]\n",
-            argv[ 1 ], iSourceSize, iKernel32SectorCount );
+            argv[ 1 ], iSourceSize, iBooLoaderSectorCount );
     
     //----------------------
     // 부트로더파일을 열어서 모든 내용을 디스크 이미지 파일로 복사
@@ -114,7 +114,7 @@ int adjustInSectorSize( int iFd, int iSourceSize )
     if( iAdjustSizeToSector )
     {
         iAdjustSizeToSector = 512 - iAdjustSizeToSector;
-        printf("[INFO] File size [%lu] and fill [%u] byte \n", iSourceSize, iAdjustSizeToSector );
+        printf("[INFO] File size [%u] and fill [%u] byte \n", iSourceSize, iAdjustSizeToSector );
         for( i = 0; i< iAdjustSizeToSector ; i++)
         {
             write( iFd, &cCh, 1);

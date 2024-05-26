@@ -1,7 +1,7 @@
 all: ImageMaker
 
 ImageMaker: ImageMaker.c
-	gcc -o $@ $<
+	gcc -s -o $@ $< 
 
 clean:
 	rm -f ImageMaker
