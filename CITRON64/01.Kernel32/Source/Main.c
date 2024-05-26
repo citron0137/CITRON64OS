@@ -1,4 +1,5 @@
 #include "Types.h"
+#include "Page.h"
 
 void kPrintString( int iX, int iY, const char* pcString );
 void kPrintStringWithCheckBox( int iY, const char* pcString );
@@ -10,7 +11,7 @@ void Main( void ){
     DWORD i;
 
     kPrintStringWithCheckBox( 3, "Start C Kernel" );
-    kFillCheckBox( 3, "PASS" );
+    kFillCheckBox( 3, "Pass" );
     
     kPrintStringWithCheckBox( 4, "Check minimum memory size" );
     if(kIsMemoryEnough() == FALSE){
@@ -25,13 +26,17 @@ void Main( void ){
     kPrintStringWithCheckBox( 5, "Initialize IA-32e Kernel Area" );
     kInitializeKernel64Area();
     if(kInitializeKernel64Area() == FALSE){
-        kFillCheckBox( 5, "FAIL" );
+        kFillCheckBox( 5, "Fail" );
         kPrintString( 0, 6, "Failed to initialize IA-32e Kernel Area" );
         while( 1 );
     }
     else{
-        kFillCheckBox( 5, "PASS" );
+        kFillCheckBox( 5, "Pass" );
     }
+    
+    kPrintStringWithCheckBox( 6, "Initialize IA-32e Page Tables" );
+    kInitializePageTables();
+    kFillCheckBox( 6, "Pass" );
     
     while(1);
 }
