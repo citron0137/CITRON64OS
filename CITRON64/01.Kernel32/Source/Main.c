@@ -1,5 +1,6 @@
 #include "Types.h"
 #include "Page.h"
+#include "ModeSwitch.h"
 
 void kPrintString( int iX, int iY, const char* pcString );
 void kPrintStringWithCheckBox( int iY, const char* pcString );
@@ -38,6 +39,29 @@ void Main( void ){
     kInitializePageTables();
     kFillCheckBox( 6, "Pass" );
     
+    // Read Processor Vendor
+    DWORD dwEAX, dwEBX, dwECX, dwEDX;
+    char vcVendorString[ 13 ] = { 0, };
+    kReadCPUID(0x00, &dwEAX, &dwEBX, &dwECX, &dwEDX);
+    *( DWORD* ) vcVendorString = dwEBX;
+    *( ( DWORD* ) vcVendorString + 1) = dwEDX;
+    *( ( DWORD* ) vcVendorString + 2) = dwECX;
+    kPrintStringWithCheckBox( 7, "Read Processor Vendor" );
+    kFillCheckBox( 7, vcVendorString );
+    
+    // Check 64bit support
+    kReadCPUID(0x80000001, &dwEAX, &dwEBX, &dwECX, &dwEDX);
+    kPrintStringWithCheckBox( 8, "Check 64bit Support" );
+    if( dwEDX & ( 1 << 29) )
+        kFillCheckBox( 8, "Pass" );
+    else{
+        kFillCheckBox( 8, "Fail" );
+        kPrintString( 0, 9, "Processor does not support 64bit" );
+        while( 1 );
+    }
+
+    kPrintStringWithCheckBox( 8, "Switch To IA-32e Mode" );
+
     while(1);
 }
 
