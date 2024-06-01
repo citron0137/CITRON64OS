@@ -5,8 +5,7 @@ void kPrintStringWithCheckBox( int iY, const char* pcString );
 void kFillCheckBox( int iY, const char* pcString );
 
 void Main( void ){
-    //kPrintStringWithCheckBox( 9, "Switch To IA-32e Mode" );
-    kFillCheckBox( 9, "Pass" );
+    kFillCheckBox( 10, "Pass" );
     while(1);
 }
 
