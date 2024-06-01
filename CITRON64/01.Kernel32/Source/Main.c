@@ -26,7 +26,6 @@ void Main( void ){
     }
 
     kPrintStringWithCheckBox( 5, "Initialize IA-32e Kernel Area" );
-    kInitializeKernel64Area();
     if(kInitializeKernel64Area() == FALSE){
         kFillCheckBox( 5, "Fail" );
         kPrintString( 0, 6, "Failed to initialize IA-32e Kernel Area" );
@@ -41,18 +40,18 @@ void Main( void ){
     kFillCheckBox( 6, "Pass" );
     
     // Read Processor Vendor
+    kPrintStringWithCheckBox( 7, "Read Processor Vendor" );
     DWORD dwEAX, dwEBX, dwECX, dwEDX;
     char vcVendorString[ 13 ] = { 0, };
     kReadCPUID(0x00, &dwEAX, &dwEBX, &dwECX, &dwEDX);
     *( DWORD* ) vcVendorString = dwEBX;
     *( ( DWORD* ) vcVendorString + 1) = dwEDX;
     *( ( DWORD* ) vcVendorString + 2) = dwECX;
-    kPrintStringWithCheckBox( 7, "Read Processor Vendor" );
     kFillCheckBox( 7, vcVendorString );
     
     // Check 64bit support
-    kReadCPUID(0x80000001, &dwEAX, &dwEBX, &dwECX, &dwEDX);
     kPrintStringWithCheckBox( 8, "Check 64bit Support" );
+    kReadCPUID(0x80000001, &dwEAX, &dwEBX, &dwECX, &dwEDX);
     if( dwEDX & ( 1 << 29) )
         kFillCheckBox( 8, "Pass" );
     else{
@@ -64,7 +63,6 @@ void Main( void ){
     kPrintStringWithCheckBox( 9, "Copy IA-32e Kernel to 2M(Addr)" );
     kCopyKernel64ImageTo2Mbyte();
     kFillCheckBox( 9, "Pass" );
-    
     kPrintStringWithCheckBox( 10, "Switch To IA-32e Mode" );
     kSwitchAndExecute64bitKernel();
 
@@ -113,12 +111,12 @@ void kCopyKernel64ImageTo2Mbyte( void ){
     WORD wKernel32SectorCount, wTotalKernelSectorCount;
     wTotalKernelSectorCount = *( (WORD*) 0x7c05 );
     wKernel32SectorCount = *( (WORD*) 0x7c07 );
-
+    
     DWORD* pdwSrcAddress, * pdwDstAddress;
     pdwSrcAddress = (DWORD*) ( 0x10000 + (wKernel32SectorCount * 512));
     pdwDstAddress = (DWORD*) 0x200000;
 
-    for( int i = 0; i <512 * ( wTotalKernelSectorCount - wKernel32SectorCount ) / 4; i++){
+    for( int i = 0; i < 512 * ( wTotalKernelSectorCount - wKernel32SectorCount ) / 4; i++){
         *pdwDstAddress = *pdwSrcAddress;
         pdwDstAddress++;
         pdwSrcAddress++;

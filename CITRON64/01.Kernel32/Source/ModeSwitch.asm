@@ -59,7 +59,7 @@ kSwitchAndExecute64bitKernel:
     ; IA32_EFER.LME를 1로 설정하여 IA-32e 모드 활성화
     mov ecx, 0xC0000080 ; 0xC0000080 = MSR레지스터 주소 
     rdmsr
-    or eax, 0x1000; LME bit = 1
+    or eax, 0x0100; LME bit = 1
     wrmsr
 
     ; NW[29] = 0, CD[30] = 0, PG[32] = 1 -> 캐시와 페이징 활성화
