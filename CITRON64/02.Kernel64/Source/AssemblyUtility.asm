@@ -5,7 +5,7 @@ global kInPortByte, kOutPortByte
 
 kInPortByte:
     push rdx
-    
+
     mov rdx, rdi
     mov rax, 0
     in al, dx
@@ -15,11 +15,11 @@ kInPortByte:
 
 kOutPortByte:
     push rdx
-    push rax
-
+    push rax 
+    
     mov rdx, rdi 
     mov rax, rsi 
-    out dx, al 
+    out dx, al
 
     pop rax 
     pop rdx 
