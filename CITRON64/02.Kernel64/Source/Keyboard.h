@@ -6,8 +6,8 @@
 #define KEY_SKIPCOUNTFORPAUSE 2
 
 #define KEY_FLAGS_UP            0x00
-#define KEY_FLAGS_DOWN          0x00
-#define KEY_FLAGS_EXTENDEDKEY   0x00
+#define KEY_FLAGS_DOWN          0x01
+#define KEY_FLAGS_EXTENDEDKEY   0x02
 
 #define KEY_MAPPINGTABLEMAXCOUNT 89
 
@@ -76,7 +76,7 @@ typedef struct kKeyboardManagerStruct
 // Functions
 BOOL kIsOutputBufferFull( void );
 BOOL kIsInputBufferFull( void );
-BOOL kActiveKeyboard( void );
+BOOL kActivateKeyboard( void );
 BYTE kGetKeyboardScanCode( void );
 BOOL kChangeKeyboardLED( BOOL bCapsLockOn, BOOL bNumLockOn, BOOL bScrollLockOn);
 void kEnableA20Gate( void );

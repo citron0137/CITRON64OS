@@ -2,7 +2,6 @@
 
 SECTION .text
 
-; 외부에서 정의된 함수를 사용할 수 있도록 선언
 extern Main
 
 START:
