@@ -27,7 +27,6 @@ void Main( void ){
                 if(bFlags & KEY_FLAGS_DOWN)
                     kPrintString(i++, 12, vcTemp);
         }
-
     }
     
     while(1);
