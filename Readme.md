@@ -15,15 +15,4 @@
 해당 문제를 어떻게 해결해나갔는지를 <br/>
 일별로 정리할 예정입니다.  
 
-### 일별로그
-
-* 2024.05.07 [link](https://first-kileskus-5b8.notion.site/20240507-cb2b16d202af45de8b44599375620287?pvs=4)
-    * 레포지터리 초기화
-    * 환경 구축
-    * 16bit 부트로더 제작
-    * 이미지 로더 구현
-
-* 2024.05.08 [link](https://first-kileskus-5b8.notion.site/20240508-78b5a7e05e2142fe87a33ba6ff7ac463?pvs=4)
-    * todo
-
-* 2024.05.09 [link](https://first-kileskus-5b8.notion.site/20240509-298cd5aad68849b99395a0969009c809?pvs=4)
+(제작일기)[https://www.notion.so/20240509-298cd5aad68849b99395a0969009c809?pvs=4]
