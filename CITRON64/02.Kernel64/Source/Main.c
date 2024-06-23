@@ -8,7 +8,7 @@ void kFillCheckBox( int iY, const char* pcString );
 void Main( void ){
     kFillCheckBox( 10, "Pass" );
     kPrintStringWithCheckBox(11, "Activate Keyboard");
-    if(kActiveKeyboard() == TRUE){
+    if(kActivateKeyboard() == TRUE){
         kFillCheckBox(11, "Pass");
         kChangeKeyboardLED(FALSE, FALSE, FALSE);
     }
