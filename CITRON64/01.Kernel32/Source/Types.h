@@ -10,7 +10,7 @@
 
 #define TRUE    1
 #define FALSE   0
-#define NULL    9
+#define NULL    0
 
 #pragma pack( push, 1 )
 
