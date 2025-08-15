@@ -3,7 +3,13 @@
 make -C ../CITRON64 clean
 make -C ../CITRON64
 
-qemu-system-i386 -L . -m 64 -fda ../CITRON64/Disk.img -M pc -s -S &
+qemu-system-i386 \
+	-no-reboot -no-shutdown \
+	-L . -m 64 \
+	-fda ../CITRON64/Disk.img \
+	-M pc \
+	-s \
+	-S &
 
 sleep 1s
 

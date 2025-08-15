@@ -3,7 +3,13 @@
 make -C ../CITRON64 clean
 make -C ../CITRON64
 
-qemu-system-x86_64 -L . -m 64 -fda ../CITRON64/Disk.img -M pc -s -S &
+qemu-system-x86_64 \
+	-no-reboot -no-shutdown \
+	-L . -m 64 \
+	-fda ../CITRON64/Disk.img \
+	-M pc \
+	-s \
+	-S &
 
 sleep 1s
 
@@ -12,7 +18,8 @@ gdb -q \
 	-ex "set disassembly-flavor intel" \
 	-ex "layout asm" \
 	-ex "layout reg" \
-	-ex "b *0x10200" \
+	# -ex "b *0x10200" \
+	-ex "b *0x20000" \
 	-ex "c" 
 	
 	# -ex "set tdesc filename target.xml" \
