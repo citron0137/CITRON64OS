@@ -57,7 +57,7 @@ $(ENTRYPOINTOBJECTFILE): $(ENTRYPOINTSOURCEFILE)
 InternalDependency:
 	$(GCC64) -MM $(CSOURCEFILES) > Dependency.dep
 
-Kernel64.elf: $(CENTRYPOINTOBJECTFILE) $(COBJECTFILES) $(ASSEMBLYOBJECTFILES)
+Kernel64.elf: $(ENTRYPOINTOBJECTFILE) $(COBJECTFILES) $(ASSEMBLYOBJECTFILES)
 	$(LD64) -o $@ $^
 
 ifeq (Dependency.dep, $(wildcard Dependency.dep))
