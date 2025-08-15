@@ -36,7 +36,7 @@ void kCommonInterruptHandler( int iInterruptNumber )
 
 void kKeyboardHandler( int iInterruptNumber )
 {
-    char vcBuffer[ ] = "[KEY:  ,  ]";
+    char vcBuffer[ ] = "[KEY:  ,   ]";
     static int g_iKeyboardCount = 0;
     g_iKeyboardCount = (g_iKeyboardCount+1)%100;
 
