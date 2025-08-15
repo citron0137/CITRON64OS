@@ -7,7 +7,7 @@ extern Main
 global _start
 
 _start:
-START:
+_start:
     mov ax, 0x10    ; 세그먼트 디스크립터 지정
     mov ds, ax
     mov es, ax

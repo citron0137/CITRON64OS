@@ -1,10 +1,8 @@
 #include "Types.h"
+#include "stdio.h"
 #include "Keyboard.h"
 #include "Descriptor.h"
-
-void kPrintString( int iX, int iY, const char* pcString );
-void kPrintStringWithCheckBox( int iY, const char* pcString );
-void kFillCheckBox( int iY, const char* pcString );
+#include "PIC.h"
 
 void Main( void ){
     kFillCheckBox( 10, "Pass" );
@@ -22,7 +20,7 @@ void Main( void ){
     kLoadTR( GDT_TSSSEGMENT );
     kFillCheckBox( 12, "Pass" );
 
-    kPrintStringWithCheckBox( 13, "IDT Initailize And Switch For IA-32e Mode" );
+    kPrintStringWithCheckBox( 13, "IDT Initailize" );
     kInitializeIDTTables();
     kLoadIDTR( (QWORD) IDTR_STARTADDRESS );
     kFillCheckBox( 13, "Pass" );
@@ -37,12 +35,18 @@ void Main( void ){
         while(1);
     }
 
+    kPrintStringWithCheckBox( 15, "PIC Controller And Interrupt Enable" );
+    kInitializePIC();
+    kMaskPICInterrupt( 0 );  // 0x0002 비트만 0으로 설정 (IRQ1 활성화)
+    kEnableInterrupt();
+    kFillCheckBox( 15, "Pass" );
+
     while(1){
         if(kIsOutputBufferFull() == TRUE){
             bTemp = kGetKeyboardScanCode();
             if(kConvertScanCodeToASCIICode(bTemp, &(vcTemp[0]), &bFlags)==TRUE)
                 if(bFlags & KEY_FLAGS_DOWN){
-                    kPrintString(i++, 15, vcTemp);
+                    kPrintString(i++, 16, vcTemp);
                     if( vcTemp[0] == '0' ){
                         bTemp = bTemp / 0;
                     }
@@ -50,21 +54,4 @@ void Main( void ){
         }
     }
     while(1);
-}
-
-void kPrintString( int iX, int iY, const char* pcString ){
-    CHARACTER* pstScreen = ( CHARACTER* ) 0xB8000; 
-    pstScreen += ( iY * 80 ) + iX;
-    for( int i = 0; pcString[i] != 0; i++ )
-    {
-        pstScreen[ i ].bCharactor = pcString[ i ];
-    }
-}
-void kPrintStringWithCheckBox( int iY, const char* pcString ){
-    kPrintString( 0, iY, "............................................[    ]"); 
-    kPrintString( 0, iY, pcString );
-}
-
-void kFillCheckBox( int iY, const char* pcString ){
-    kPrintString( 45, iY, pcString );
 }
